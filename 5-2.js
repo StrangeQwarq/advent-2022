@@ -1,6 +1,7 @@
 var lines = document.getElementsByTagName('pre')[0].textContent.split("\n").filter(a => a.length > 0);
 var answer = "";
-var stacks = [[],[],[],[],[],[],[],[],[]];
+var stacks = [];
+lines[8].replace(/\s/g, "").split('').forEach(() => stacks.push([]));
 
 lines.slice(0, 8).reverse().forEach((line) => {
 	let column = 0;
