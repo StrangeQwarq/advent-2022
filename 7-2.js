@@ -1,8 +1,6 @@
 var files = {};
 var cwdPath = [];
 var cwd = files;
-var maxSize = 100000;
-var totalSize = 0;
 var availableDiskSpace = 70000000;
 var minimumDiskSpace = 30000000;
 var smallestValidDirectory = Infinity;
@@ -13,10 +11,10 @@ function getCwd() {
 	return dir;
 }
 
-function findDirectorySize(dir, maximumSize) {
+function findDirectorySize(dir) {
 	let dirSize = 0;
 	for (let k in dir) {
-		dirSize += (typeof dir[k] === "object") ? findDirectorySize(dir[k], maximumSize) : dir[k];
+		dirSize += (typeof dir[k] === "object") ? findDirectorySize(dir[k]) : dir[k];
 	}
 
 	if(availableDiskSpace + dirSize > minimumDiskSpace && dirSize < smallestValidDirectory) {
@@ -40,11 +38,10 @@ document.getElementsByTagName('pre')[0].textContent.split("\n").filter(a => a.le
 			cwd[commandParts[1]] = {};
 		}
 		else {
-			cwd[commandParts[1]] = parseInt(commandParts[0]);
-			availableDiskSpace -= cwd[commandParts[1]];
+			availableDiskSpace -= (cwd[commandParts[1]] = parseInt(commandParts[0]));
 		}
 	}
 });
 
-findDirectorySize(files, maxSize);
+findDirectorySize(files);
 console.log(smallestValidDirectory);
