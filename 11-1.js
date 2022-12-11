@@ -12,7 +12,7 @@ for (let i = 0; i < lines.length; i+=6) {
 		trueTarget:   parseInt(lines[i + 4].replace("If true: throw to monkey ", "")),
 		falseTarget:  parseInt(lines[i + 5].replace("If false: throw to monkey ", "")),
 		inspections:  0
-	}
+	};
 
 	monkeys[newMonkey.monkeyNumber] = newMonkey;
 }
@@ -32,7 +32,6 @@ Array(numRounds).fill(0).forEach((x, roundNumber) => {
 			item = Math.floor(item / 3);
 			if (item % m.divisible !== 0) throwTarget = m.falseTarget;
 
-
 			monkeys[throwTarget].items.push(item);
 		}
 
@@ -40,5 +39,5 @@ Array(numRounds).fill(0).forEach((x, roundNumber) => {
 	});
 });
 
-var inspectionCounts = Object.keys(monkeys).map(m => monkeys[m].inspections).sort((a, b) => a < b ? 1 : -1)
+var inspectionCounts = Object.keys(monkeys).map(m => monkeys[m].inspections).sort((a, b) => a < b ? 1 : -1);
 console.log(inspectionCounts[0] * inspectionCounts[1]);
